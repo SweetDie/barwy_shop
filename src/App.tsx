@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IAuthProvider {
+  provider: string;
+  token: string;
 }
+
+const App = () => {
+  const handleLoginSuccess = (res: any) => {
+    console.log("Login google result", res);
+    const {credential} = res;
+    console.log("Token Id", credential);
+    
+  };
+
+  useEffect(() => {
+    const clientId =
+      "870779684753-qd59ki7ujjm71sv0bt4okpsfmeln0mim.apps.googleusercontent.com";
+      window.google.accounts!.id.initialize({
+      client_id: clientId,
+      callback: handleLoginSuccess,
+    });
+
+    window.google.accounts!.id.renderButton(document.getElementById("loginGoogleBtn"),
+    {theme: "outline", size: "Large"});
+
+  }, []);
+
+  return (
+    <>
+      <h1>Login google</h1>
+      <div id="loginGoogleBtn"></div>
+    </>
+  );
+};
 
 export default App;
