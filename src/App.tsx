@@ -1,38 +1,18 @@
-import { useEffect } from "react";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import DefaultLayout from "./components/containers/default";
+import LoginPage from "./components/auth/login";
+import NotFoundPage from "./components/notFound";
 
-interface IAuthProvider {
-  provider: string;
-  token: string;
-}
-
-const App = () => {
-  const handleLoginSuccess = (res: any) => {
-    console.log("Login google result", res);
-    const {credential} = res;
-    console.log("Token Id", credential);
-    
-  };
-
-  useEffect(() => {
-    const clientId =
-      "870779684753-qd59ki7ujjm71sv0bt4okpsfmeln0mim.apps.googleusercontent.com";
-      window.google.accounts!.id.initialize({
-      client_id: clientId,
-      callback: handleLoginSuccess,
-    });
-
-    window.google.accounts!.id.renderButton(document.getElementById("loginGoogleBtn"),
-    {theme: "outline", size: "Large"});
-
-  }, []);
-
+function App() {
   return (
-    <>
-      <h1>Login google</h1>
-      <div id="loginGoogleBtn"></div>
-    </>
+    <Routes>
+      <Route path="/" element={<DefaultLayout />}>
+        <Route index element={<LoginPage />} />
+      </Route>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
-};
+}
 
 export default App;
