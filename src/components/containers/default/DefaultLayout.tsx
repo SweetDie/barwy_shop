@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import DefaultHeader from "./DefaultHeader";
+import DefaultFooter from "./DefaultFooter";
 
 const DefaultLayout = () => {
   return (
@@ -8,6 +9,7 @@ const DefaultLayout = () => {
       <div className="container">
         <Outlet />
       </div>
+      <DefaultFooter />
     </>
   );
 };

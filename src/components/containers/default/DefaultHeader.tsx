@@ -28,12 +28,7 @@ const DefaultHeader = () => {
   };
 
   return (
-    <AppBar
-      position="static"
-      sx={{
-        bgcolor: "#d32f2f",
-      }}
-    >
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <PaletteIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
