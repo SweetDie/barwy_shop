@@ -1,49 +1,24 @@
-import { useEffect, useRef } from "react";
+import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { ILoginCredentials } from "../store/types";
-import { useActions } from "../../../hooks/useActions";
-import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
-interface IAuthProvider {
-  provider: string;
-  token: string;
-}
-
-const LoginPage = () => {
-  const { Login } = useActions();
+const RegisterPage = () => {
+  const divRef = useRef(null);
 
   const handleGoogleLoginSuccess = (res: any) => {
     console.log("Login google result", res);
     const { credential } = res;
     console.log("Token Id", credential);
   };
-
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const data = new FormData(event.currentTarget);
-    const credentials: ILoginCredentials = {
-      email: data.get("email")!.toString(),
-      password: data.get("password")!.toString(),
-    };
-
-    toast.success("Success");
-
-    //Login(credentials);
-  };
-
-  const divRef = useRef(null);
 
   useEffect(() => {
     if (divRef.current) {
@@ -62,6 +37,15 @@ const LoginPage = () => {
     }
   }, []);
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -77,40 +61,58 @@ const LoginPage = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Вхід
+          Реєстрація
         </Typography>
-        <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Електронна адреса"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Пароль"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Запам'ятати мене"
-          />
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="given-name"
+                name="firstName"
+                fullWidth
+                id="firstName"
+                label="Ім'я"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                id="lastName"
+                label="Прізвище"
+                name="lastName"
+                autoComplete="family-name"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Електронна адреса"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="password"
+                label="Пароль"
+                type="password"
+                id="password"
+                autoComplete="new-password"
+              />
+            </Grid>
+          </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Увійти
+            Зареєструватися
           </Button>
           <Box
             sx={{ mb: 2 }}
@@ -120,21 +122,13 @@ const LoginPage = () => {
           >
             <div ref={divRef}></div>
           </Box>
-          <Grid container>
-            <Grid item xs>
-              <Link
-                to="/"
-                style={{ textDecoration: "underline", color: "red" }}
-              >
-                Забули пароль?
-              </Link>
-            </Grid>
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Link
-                to="/register"
+                to="/login"
                 style={{ textDecoration: "underline", color: "red" }}
               >
-                Немає облікового запису?
+                Вже зареєстровані?
               </Link>
             </Grid>
           </Grid>
@@ -144,4 +138,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

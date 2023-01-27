@@ -81,7 +81,7 @@ const DefaultHeader = () => {
             >
               <Link to="/">
                 <MenuItem key="catalog" onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Catalog</Typography>
+                  <Typography textAlign="center">Каталог</Typography>
                 </MenuItem>
               </Link>
             </Menu>
@@ -112,16 +112,18 @@ const DefaultHeader = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                Catalog
+                Каталог
               </Button>
             </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Link to="login">
-              <Button color="inherit">Login</Button>
+              <Button color="inherit">Вхід</Button>
             </Link>
-            <Button color="inherit">Register</Button>
+            <Link to="register">
+              <Button color="inherit">Реєстрація</Button>
+            </Link>
           </Box>
         </Toolbar>
       </Container>
