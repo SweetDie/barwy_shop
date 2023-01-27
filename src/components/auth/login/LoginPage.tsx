@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,26 +10,32 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { ILoginCredentials } from "../store/types";
+import { IAuthProvider, ILoginCredentials } from "../store/types";
 import { useActions } from "../../../hooks/useActions";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-
-interface IAuthProvider {
-  provider: string;
-  token: string;
-}
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
 
 const LoginPage = () => {
-  const { Login } = useActions();
+  const { Login, LoginWithProvider } = useActions();
 
-  const handleGoogleLoginSuccess = (res: any) => {
-    console.log("Login google result", res);
+  const handleGoogleLoginSuccess = async (res: any) => {
     const { credential } = res;
-    console.log("Token Id", credential);
+
+    const googleProvider: IAuthProvider = {
+      provider: "Google",
+      token: credential,
+    };
+
+    try {
+      const message: any = await LoginWithProvider(googleProvider);
+      toast.success(message);
+    } catch (error: any) {
+      toast.error(error);
+    }
   };
 
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
@@ -38,9 +44,12 @@ const LoginPage = () => {
       password: data.get("password")!.toString(),
     };
 
-    toast.success("Success");
-
-    //Login(credentials);
+    try {
+      const message: any = await Login(credentials);
+      toast.success(message);
+    } catch (error: any) {
+      toast.error(error);
+    }
   };
 
   const divRef = useRef(null);

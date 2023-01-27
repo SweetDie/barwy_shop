@@ -3,6 +3,18 @@ export interface ILoginCredentials {
   password: string;
 }
 
+export interface IRegister {
+  email: string;
+  password: string;
+  firstName: string | null;
+  lastName: string | null;
+}
+
+export interface IAuthProvider {
+  provider: string;
+  token: string;
+}
+
 export interface IAuthResponse {
     token: string;
   }
@@ -14,6 +26,7 @@ export interface IAuthState {
 
 export enum AuthActionTypes {
   LOGIN = "LOGIN",
+  REGISTER = "REGISTER"
 }
 
 export interface ILoginAction {
@@ -21,4 +34,8 @@ export interface ILoginAction {
     payload: IAuthState;
   }
 
-export type AuthActions = ILoginAction;
+  export interface IRegisterAction {
+    type: AuthActionTypes.REGISTER;
+  }
+
+export type AuthActions = ILoginAction | IRegisterAction;

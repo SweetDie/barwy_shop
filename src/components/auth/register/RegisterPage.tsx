@@ -10,14 +10,28 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
+import { IAuthProvider, IRegister } from "../store/types";
+import { useActions } from "../../../hooks/useActions";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
+  const { LoginWithProvider, Register } = useActions();
   const divRef = useRef(null);
 
-  const handleGoogleLoginSuccess = (res: any) => {
-    console.log("Login google result", res);
+  const handleGoogleLoginSuccess = async (res: any) => {
     const { credential } = res;
-    console.log("Token Id", credential);
+
+    const googleProvider: IAuthProvider = {
+      provider: "Google",
+      token: credential,
+    };
+
+    try {
+      const message: any = await LoginWithProvider(googleProvider);
+      toast.success(message);
+    } catch (error: any) {
+      toast.error(error);
+    }
   };
 
   useEffect(() => {
@@ -37,13 +51,23 @@ const RegisterPage = () => {
     }
   }, []);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    const newUser: IRegister = {
+      email: data.get("email")!.toString(),
+      password: data.get("password")!.toString(),
+      firstName: data.get("firstName")!.toString(),
+      lastName: data.get("lastName")!.toString(),
+    };
+
+    try {
+        const message: any = await Register(newUser);
+        toast.success(message);
+      } catch (error: any) {
+        toast.error(error);
+      }
   };
 
   return (

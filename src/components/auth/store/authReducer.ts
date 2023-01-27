@@ -1,4 +1,3 @@
-import { Action } from "@remix-run/router";
 import { IAuthState, AuthActionTypes, AuthActions } from "./types";
 
 const initialState: IAuthState = {
@@ -10,10 +9,10 @@ export const authReducer = (
   action: AuthActions
 ): IAuthState => {
   switch (action.type) {
-    case AuthActionTypes.LOGIN: {
+    case AuthActionTypes.LOGIN: {      
       return {
         ...state,
-        ...action.payload,
+        token: action.payload.token
       };
     }
     default:
