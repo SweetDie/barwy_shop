@@ -4,7 +4,7 @@ import {
   AuthActionTypes,
   AuthActions,
   IAuthProvider,
-  IAuthResponse,
+  IServiceResponse,
   ILoginCredentials,
   IRegister,
 } from "./types";
@@ -13,7 +13,7 @@ export const Login =
   (credentials: ILoginCredentials) =>
   async (dispatch: Dispatch<AuthActions>) => {
     try {
-      const resp = await http.post<IAuthResponse>(
+      const resp = await http.post<IServiceResponse>(
         "/api/Account/login",
         credentials
       );
@@ -21,28 +21,28 @@ export const Login =
       dispatch({
         type: AuthActionTypes.LOGIN,
         payload: {
-          token: data.token,
+          token: data.payload,
         },
       });
-      return Promise.resolve("Успішний вхід");
+      return Promise.resolve(data.message);
     } catch (error: any) {
       const { data } = error.response;
-      return Promise.reject(data.error);
+      return Promise.reject(data.message);
     }
   };
 
 export const LoginWithProvider =
   (authProvider: IAuthProvider) => async (dispatch: Dispatch<AuthActions>) => {
     try {
-      const resp = await http.post<IAuthResponse>(
-        "/api/Account/googleExternalLogin",
+      const resp = await http.post<IServiceResponse>(
+        "/api/Account/externalLogin",
         authProvider
       );
       const { data } = resp;
       dispatch({
         type: AuthActionTypes.LOGIN,
         payload: {
-          token: data.token,
+          token: data.payload,
         },
       });
       return Promise.resolve("Успішний вхід");
@@ -55,7 +55,7 @@ export const LoginWithProvider =
   export const Register =
   (newUser: IRegister) => async (dispatch: Dispatch<AuthActions>) => {
     try {
-      const resp = await http.post(
+      const resp = await http.post<IServiceResponse>(
         "/api/Account/register",
         newUser
       );
@@ -63,9 +63,9 @@ export const LoginWithProvider =
       dispatch({
         type: AuthActionTypes.REGISTER
       });
-      return Promise.resolve("Реєстрація пройшла успішно");
+      return Promise.resolve(data.message);
     } catch (error: any) {
       const { data } = error.response;
-      return Promise.reject(data.error);
+      return Promise.reject(data.message);
     }
   };

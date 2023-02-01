@@ -4,20 +4,27 @@ export interface IProductItem {
   price: number;
   article: string;
   size: string;
+  categories: Array<ICategoryItem>
 }
 
-export interface IProductResponse {
-  data: Array<IProductItem>;
-  current_page: number;
-  total: number;
-  last_page: number;
+export interface ICategoryItem {
+  id: number,
+  name: string
+}
+
+export interface IProductCardProps {
+  product: IProductItem
+}
+
+export interface IServiceResponse {
+  message: string;
+  payload: any;
+  isSuccess: boolean;
+  errors: Array<string>
 }
 
 export interface IProductState {
   list: Array<IProductItem>;
-  current_page: number;
-  total: number;
-  count_pages: number;
 }
 
 export interface IProductSearch {

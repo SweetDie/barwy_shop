@@ -9,47 +9,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import { IAuthProvider, IRegister } from "../store/types";
+import { IRegister } from "../store/types";
 import { useActions } from "../../../hooks/useActions";
 import { toast } from "react-toastify";
+import GooglePage from "../../../components/google";
 
-const RegisterPage = () => {
-  const { LoginWithProvider, Register } = useActions();
-  const divRef = useRef(null);
-
-  const handleGoogleLoginSuccess = async (res: any) => {
-    const { credential } = res;
-
-    const googleProvider: IAuthProvider = {
-      provider: "Google",
-      token: credential,
-    };
-
-    try {
-      const message: any = await LoginWithProvider(googleProvider);
-      toast.success(message);
-    } catch (error: any) {
-      toast.error(error);
-    }
-  };
-
-  useEffect(() => {
-    if (divRef.current) {
-      const clientId =
-        "870779684753-qd59ki7ujjm71sv0bt4okpsfmeln0mim.apps.googleusercontent.com";
-      google.accounts!.id.initialize({
-        client_id: clientId,
-        callback: handleGoogleLoginSuccess,
-      });
-      google.accounts!.id.renderButton(divRef.current, {
-        theme: "outline",
-        size: "large",
-        type: "standard",
-        text: "signin",
-      });
-    }
-  }, []);
+const RegisterPage: React.FC = () => {
+  const { Register } = useActions();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,16 +24,17 @@ const RegisterPage = () => {
     const newUser: IRegister = {
       email: data.get("email")!.toString(),
       password: data.get("password")!.toString(),
+      confirmPassword: data.get("confirmPassword")!.toString(),
       firstName: data.get("firstName")!.toString(),
       lastName: data.get("lastName")!.toString(),
     };
 
     try {
-        const message: any = await Register(newUser);
-        toast.success(message);
-      } catch (error: any) {
-        toast.error(error);
-      }
+      const message: any = await Register(newUser);
+      toast.success(message);
+    } catch (error: any) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -129,6 +96,17 @@ const RegisterPage = () => {
                 autoComplete="new-password"
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="confirmPassword"
+                label="Повторіть пароль"
+                type="password"
+                id="confirmPassword"
+                autoComplete="new-confirmPassword"
+              />
+            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -144,7 +122,7 @@ const RegisterPage = () => {
             justifyContent="center"
             alignItems="center"
           >
-            <div ref={divRef}></div>
+            <GooglePage />
           </Box>
           <Grid container justifyContent="flex-end">
             <Grid item>

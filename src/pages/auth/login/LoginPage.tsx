@@ -1,4 +1,3 @@
-import { useEffect, useReducer, useRef } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,30 +9,14 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { IAuthProvider, ILoginCredentials } from "../store/types";
+import { ILoginCredentials } from "../store/types";
 import { useActions } from "../../../hooks/useActions";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import GooglePage from "../../../components/google";
 
-const LoginPage = () => {
-  const { Login, LoginWithProvider } = useActions();
-
-  const handleGoogleLoginSuccess = async (res: any) => {
-    const { credential } = res;
-
-    const googleProvider: IAuthProvider = {
-      provider: "Google",
-      token: credential,
-    };
-
-    try {
-      const message: any = await LoginWithProvider(googleProvider);
-      toast.success(message);
-    } catch (error: any) {
-      toast.error(error);
-    }
-  };
+const LoginPage: React.FC = () => {
+  const { Login } = useActions();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,25 +34,6 @@ const LoginPage = () => {
       toast.error(error);
     }
   };
-
-  const divRef = useRef(null);
-
-  useEffect(() => {
-    if (divRef.current) {
-      const clientId =
-        "870779684753-qd59ki7ujjm71sv0bt4okpsfmeln0mim.apps.googleusercontent.com";
-      google.accounts!.id.initialize({
-        client_id: clientId,
-        callback: handleGoogleLoginSuccess,
-      });
-      google.accounts!.id.renderButton(divRef.current, {
-        theme: "outline",
-        size: "large",
-        type: "standard",
-        text: "signin",
-      });
-    }
-  }, []);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -127,7 +91,7 @@ const LoginPage = () => {
             justifyContent="center"
             alignItems="center"
           >
-            <div ref={divRef}></div>
+            <GooglePage />
           </Box>
           <Grid container>
             <Grid item xs>

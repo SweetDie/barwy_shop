@@ -1,5 +1,5 @@
-import * as ProductActionCreators from "../../components/home/store/actions";
-import * as AuthActionCreators from "../../components/auth/store/actions";
+import * as ProductActionCreators from "../../pages/home/store/actions";
+import * as AuthActionCreators from "../../pages/auth/store/actions";
 
 const actions = {
   ...ProductActionCreators,

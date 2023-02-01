@@ -6,6 +6,7 @@ export interface ILoginCredentials {
 export interface IRegister {
   email: string;
   password: string;
+  confirmPassword: string;
   firstName: string | null;
   lastName: string | null;
 }
@@ -15,8 +16,11 @@ export interface IAuthProvider {
   token: string;
 }
 
-export interface IAuthResponse {
-    token: string;
+export interface IServiceResponse {
+    payload: any;
+    message: string;
+    isSuccess: boolean;
+    errors: [];
   }
 
 

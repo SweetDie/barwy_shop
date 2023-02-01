@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 const pages = ["Catalog", "Pricing", "Blog"];
 
-const DefaultHeader = () => {
+const DefaultHeader: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );

@@ -1,16 +1,19 @@
-import { Box, Container, Grid, Link, Paper, Typography } from "@mui/material";
+import { Box, Container, Grid, Link, Typography } from "@mui/material";
 
-const DefaultFooter = () => {
+const DefaultFooter: React.FC = () => {
   return (
     <Box
       sx={{
-        marginTop: "calc(10% + 60px)",
         position: "fixed",
         bottom: 0,
         width: "100%",
         height: "auto",
         paddingTop: "1rem",
         paddingBottom: "1rem",
+        backgroundColor: (theme) =>
+        theme.palette.mode === 'light'
+          ? theme.palette.grey[200]
+          : theme.palette.grey[800]
       }}
     >
       <Container maxWidth="lg">
@@ -18,7 +21,7 @@ const DefaultFooter = () => {
           <Grid item xs={12}>
             <Typography variant="body2" color="text.secondary" align="center">
               {"Copyright © "}
-              <Link color="inherit" href="https://mui.com/">
+              <Link color="inherit" href="/">
                 Barwy shop
               </Link>{" "}
               {new Date().getFullYear()}

@@ -1,6 +1,6 @@
 import "./styles.scss";
 
-const NotFoundPage = () => {
+const NotFoundPage: React.FC = () => {
   return (
     <section className="wrapper">
       <div className="container">

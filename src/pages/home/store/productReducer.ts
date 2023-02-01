@@ -2,10 +2,7 @@ import { Action } from "@remix-run/router";
 import { IProductState, ProductActionTypes, ProductActions } from "./types";
 
 const initialState: IProductState = {
-  list: [],
-  count_pages: 0,
-  current_page: 0,
-  total: 0
+  list: []
 };
 
 export const productReducer = (

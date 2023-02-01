@@ -1,10 +1,10 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import DefaultLayout from "./components/containers/default";
-import LoginPage from "./components/auth/login";
-import NotFoundPage from "./components/notFound";
-import HomePage from "./components/home";
-import RegisterPage from "./components/auth/register";
+import LoginPage from "./pages/auth/login";
+import NotFoundPage from "./pages/notFound";
+import HomePage from "./pages/home";
+import RegisterPage from "./pages/auth/register";
 
 function App() {
   return (

@@ -1,14 +1,15 @@
 import { Outlet } from "react-router-dom";
 import DefaultHeader from "./DefaultHeader";
 import DefaultFooter from "./DefaultFooter";
+import { Container } from "@mui/system";
 
-const DefaultLayout = () => {
+const DefaultLayout: React.FC = () => {
   return (
     <>
       <DefaultHeader />
-      <div className="container">
+      <Container fixed sx={{ p: 5 }}>
         <Outlet />
-      </div>
+      </Container>
       <DefaultFooter />
     </>
   );
