@@ -1,0 +1,1 @@
+export const IMAGES_FOLDER = "https://barwyshop.somee.com/images/";

@@ -2,6 +2,7 @@ export interface IProductItem {
   id: number;
   name: string;
   price: number;
+  image: string;
   article: string;
   size: string;
   categories: Array<ICategoryItem>
@@ -25,6 +26,7 @@ export interface IServiceResponse {
 
 export interface IProductState {
   list: Array<IProductItem>;
+  loading: boolean;
 }
 
 export interface IProductSearch {
@@ -35,6 +37,8 @@ export interface IProductSearch {
 
 export enum ProductActionTypes {
   PRODUCT_LIST = "PRODUCT_LIST",
+  START_REQUEST = "TART_REQUEST",
+  SERVER_ERROR = "SERVER_ERROR"
 }
 
 export interface GetProductsAction {
@@ -42,4 +46,12 @@ export interface GetProductsAction {
   payload: IProductState;
 }
 
-export type ProductActions = GetProductsAction;
+export interface StartRequestAction {
+  type: ProductActionTypes.START_REQUEST;
+}
+
+export interface ServerErrorAction {
+  type: ProductActionTypes.SERVER_ERROR;
+}
+
+export type ProductActions = GetProductsAction | StartRequestAction | ServerErrorAction;

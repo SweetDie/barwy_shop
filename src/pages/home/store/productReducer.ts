@@ -2,7 +2,8 @@ import { Action } from "@remix-run/router";
 import { IProductState, ProductActionTypes, ProductActions } from "./types";
 
 const initialState: IProductState = {
-  list: []
+  list: [],
+  loading: false
 };
 
 export const productReducer = (
@@ -14,6 +15,19 @@ export const productReducer = (
       return {
         ...state,
         ...action.payload,
+        loading: false
+      };
+    }
+    case ProductActionTypes.START_REQUEST: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+    case ProductActionTypes.SERVER_ERROR: {
+      return {
+        ...state,
+        loading: false
       };
     }
     default:

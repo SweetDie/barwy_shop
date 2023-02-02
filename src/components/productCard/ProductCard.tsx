@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { IProductCardProps } from "../../pages/home/store/types";
+import { IMAGES_FOLDER } from "../../constants/imagesFolderPath";
 
 const ProductCard: React.FC<IProductCardProps> = ({
   product
@@ -16,8 +17,8 @@ const ProductCard: React.FC<IProductCardProps> = ({
       <CardMedia
         component="img"
         sx={{ height: 200, objectFit: "fill" }}
-        image={require("../../img/1.jpg")}
-        title="green iguana"
+        image={`${IMAGES_FOLDER}${product.image}`}
+        title={product.name}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
