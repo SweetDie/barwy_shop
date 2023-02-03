@@ -15,7 +15,7 @@ const DefaultLayout: React.FC = () => {
       <Container fixed sx={{ p: 5 }}>
         <Outlet />
       </Container>
-      <DefaultFooter />
+      <DefaultFooter/>
     </>
   );
 };

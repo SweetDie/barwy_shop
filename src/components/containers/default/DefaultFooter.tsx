@@ -1,11 +1,12 @@
-import { Box, Container, Grid, Link, Typography } from "@mui/material";
+import { Box, Container, Grid, Link, Typography, BottomNavigation } from "@mui/material";
 
 const DefaultFooter: React.FC = () => {
-  return (
+  return (   
     <Box
       sx={{
         position: "fixed",
         bottom: 0,
+        marginTop: 'calc(10% + 60px)',
         width: "100%",
         height: "auto",
         paddingTop: "1rem",

@@ -1,11 +1,19 @@
 export interface IProductItem {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
   article: string;
   size: string;
   categories: Array<ICategoryItem>
+}
+
+export interface IProductCreate {
+  name: string,
+  price: number,
+  image?: File | null,
+  article: string,
+  size: string
 }
 
 export interface ICategoryItem {

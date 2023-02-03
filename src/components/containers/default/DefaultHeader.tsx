@@ -84,6 +84,12 @@ const DefaultHeader: React.FC = () => {
                   <Typography textAlign="center">Каталог</Typography>
                 </MenuItem>
               </Link>
+
+              <Link to="create">
+                <MenuItem key="catalog" onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Створити продукт</Typography>
+                </MenuItem>
+              </Link>
             </Menu>
           </Box>
           <PaletteIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -113,6 +119,15 @@ const DefaultHeader: React.FC = () => {
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 Каталог
+              </Button>
+            </Link>
+            <Link to="create">
+              <Button
+                key="catalog"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Створити продукт
               </Button>
             </Link>
           </Box>
