@@ -5,7 +5,7 @@ import LoginPage from "./pages/auth/login";
 import NotFoundPage from "./pages/notFound";
 import HomePage from "./pages/home";
 import RegisterPage from "./pages/auth/register";
-import CreateProductPage from "./pages/product/createProduct";
+import CreateProductPage from "./pages/product/productCreate";
 
 function App() {
   return (

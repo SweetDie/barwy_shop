@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { IProductCreate } from "../../home/store/types";
+import { IProductCreate } from "../store/types";
 import { useFormik } from "formik";
 
 const CreateProductPage = () => {

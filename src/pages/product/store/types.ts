@@ -11,7 +11,7 @@ export interface IProductItem {
 export interface IProductCreate {
   name: string,
   price: number,
-  image?: File | null,
+  image?: File,
   article: string,
   size: string
 }
@@ -45,7 +45,7 @@ export interface IProductSearch {
 
 export enum ProductActionTypes {
   PRODUCT_LIST = "PRODUCT_LIST",
-  START_REQUEST = "TART_REQUEST",
+  START_REQUEST = "START_REQUEST",
   SERVER_ERROR = "SERVER_ERROR"
 }
 

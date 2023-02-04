@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { IProductCardProps } from "../../pages/home/store/types";
+import { IProductCardProps } from "../../pages/product/store/types";
 import { IMAGES_FOLDER } from "../../constants/imagesFolderPath";
 
 const ProductCard: React.FC<IProductCardProps> = ({
