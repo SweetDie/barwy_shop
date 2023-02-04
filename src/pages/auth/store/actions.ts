@@ -4,10 +4,10 @@ import {
   AuthActionTypes,
   AuthActions,
   IAuthProvider,
-  IServiceResponse,
   ILoginCredentials,
   IRegister,
 } from "./types";
+import { IServiceResponse } from "../../../store/types";
 
 export const Login =
   (credentials: ILoginCredentials) =>
@@ -52,7 +52,7 @@ export const LoginWithProvider =
     }
   };
 
-  export const Register =
+export const Register =
   (newUser: IRegister) => async (dispatch: Dispatch<AuthActions>) => {
     try {
       const resp = await http.post<IServiceResponse>(
@@ -61,7 +61,7 @@ export const LoginWithProvider =
       );
       const { data } = resp;
       dispatch({
-        type: AuthActionTypes.REGISTER
+        type: AuthActionTypes.REGISTER,
       });
       return Promise.resolve(data.message);
     } catch (error: any) {

@@ -1,35 +1,49 @@
 import {
   Box,
   Button,
-  Checkbox,
   Container,
   CssBaseline,
-  FormControlLabel,
-  Grid,
   TextField,
   Typography,
 } from "@mui/material";
 import { IProductCreate } from "../store/types";
 import { useFormik } from "formik";
+import { useActions } from "../../../hooks/useActions";
+import { toast } from "react-toastify";
 
 const CreateProductPage = () => {
+  const { CreateProduct } = useActions();
+
   const createInitialValues: IProductCreate = {
     name: "",
     size: "",
     article: "",
-    price: 0
+    price: 0,
   };
 
-  const handlerCreateProductSubmit = (values: IProductCreate) => {
-    console.log('values', values);
-    };
+  const handlerCreateProductSubmit = async (newProduct: IProductCreate) => {
+
+    try {
+      const data = new FormData();
+      const blob = new Blob([newProduct.image as File]);
+      data.append("name", newProduct.name);
+      data.append("price", newProduct.price.toString());
+      data.append("article", newProduct.article);
+      data.append("size", newProduct.size);
+      data.append("image", blob, newProduct.image?.name);
+      const message: any = await CreateProduct(data);
+      toast.success(message);
+    } catch (error: any) {
+      toast.error(error);
+    }
+  };
 
   const formik = useFormik({
     initialValues: createInitialValues,
     onSubmit: handlerCreateProductSubmit,
   });
 
-  const {handleSubmit, values, handleChange, setFieldValue} = formik;
+  const { handleSubmit, values, handleChange, setFieldValue } = formik;
 
   return (
     <Container component="main" maxWidth="xs">

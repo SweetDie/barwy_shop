@@ -3,7 +3,7 @@ import { IProductState, ProductActionTypes, ProductActions } from "./types";
 
 const initialState: IProductState = {
   list: [],
-  loading: false
+  loading: false,
 };
 
 export const productReducer = (
@@ -15,19 +15,25 @@ export const productReducer = (
       return {
         ...state,
         ...action.payload,
-        loading: false
+        loading: false,
+      };
+    }
+    case ProductActionTypes.CREATE_PRODUCT: {
+      return {
+        ...state,
+        loading: false,
       };
     }
     case ProductActionTypes.START_REQUEST: {
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     }
     case ProductActionTypes.SERVER_ERROR: {
       return {
         ...state,
-        loading: false
+        loading: false,
       };
     }
     default:

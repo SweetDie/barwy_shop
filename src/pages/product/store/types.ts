@@ -5,31 +5,24 @@ export interface IProductItem {
   image: string;
   article: string;
   size: string;
-  categories: Array<ICategoryItem>
+  categories: Array<ICategoryItem>;
 }
 
 export interface IProductCreate {
-  name: string,
-  price: number,
-  image?: File,
-  article: string,
-  size: string
+  name: string;
+  price: number;
+  image?: File;
+  article: string;
+  size: string;
 }
 
 export interface ICategoryItem {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 
 export interface IProductCardProps {
-  product: IProductItem
-}
-
-export interface IServiceResponse {
-  message: string;
-  payload: any;
-  isSuccess: boolean;
-  errors: Array<string>
+  product: IProductItem;
 }
 
 export interface IProductState {
@@ -45,13 +38,18 @@ export interface IProductSearch {
 
 export enum ProductActionTypes {
   PRODUCT_LIST = "PRODUCT_LIST",
+  CREATE_PRODUCT = "CREATE_PRODUCT",
   START_REQUEST = "START_REQUEST",
-  SERVER_ERROR = "SERVER_ERROR"
+  SERVER_ERROR = "SERVER_ERROR",
 }
 
 export interface GetProductsAction {
   type: ProductActionTypes.PRODUCT_LIST;
   payload: IProductState;
+}
+
+export interface CreateProductAction {
+  type: ProductActionTypes.CREATE_PRODUCT;
 }
 
 export interface StartRequestAction {
@@ -62,4 +60,8 @@ export interface ServerErrorAction {
   type: ProductActionTypes.SERVER_ERROR;
 }
 
-export type ProductActions = GetProductsAction | StartRequestAction | ServerErrorAction;
+export type ProductActions =
+  | GetProductsAction
+  | CreateProductAction
+  | StartRequestAction
+  | ServerErrorAction;

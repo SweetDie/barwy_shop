@@ -16,30 +16,22 @@ export interface IAuthProvider {
   token: string;
 }
 
-export interface IServiceResponse {
-    payload: any;
-    message: string;
-    isSuccess: boolean;
-    errors: [];
-  }
-
-
 export interface IAuthState {
-    token: string | null;
-  }
+  token: string | null;
+}
 
 export enum AuthActionTypes {
   LOGIN = "LOGIN",
-  REGISTER = "REGISTER"
+  REGISTER = "REGISTER",
 }
 
 export interface ILoginAction {
-    type: AuthActionTypes.LOGIN;
-    payload: IAuthState;
-  }
+  type: AuthActionTypes.LOGIN;
+  payload: IAuthState;
+}
 
-  export interface IRegisterAction {
-    type: AuthActionTypes.REGISTER;
-  }
+export interface IRegisterAction {
+  type: AuthActionTypes.REGISTER;
+}
 
 export type AuthActions = ILoginAction | IRegisterAction;
