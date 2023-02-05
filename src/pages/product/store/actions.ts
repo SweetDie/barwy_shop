@@ -35,6 +35,7 @@ export const GetProductList =
 export const CreateProduct =
   (newProduct: FormData) =>
   async (dispatch: Dispatch<ProductActions>) => {
+    console.log("best");
     try {
       dispatch({
         type: ProductActionTypes.START_REQUEST,

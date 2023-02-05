@@ -3,8 +3,10 @@ import {
   Button,
   Container,
   CssBaseline,
+  Input,
   TextField,
   Typography,
+  styled,
 } from "@mui/material";
 import { IProductCreate } from "../store/types";
 import { useFormik } from "formik";
@@ -19,17 +21,19 @@ const CreateProductPage = () => {
     size: "",
     article: "",
     price: 0,
+    image: null
   };
 
   const handlerCreateProductSubmit = async (newProduct: IProductCreate) => {
-
     try {
+      const image = newProduct.image === undefined ? null : newProduct.image;
       const data = new FormData();
-      const blob = new Blob([newProduct.image as File]);
+      const blob = new Blob([image as BlobPart]);
       data.append("name", newProduct.name);
       data.append("price", newProduct.price.toString());
       data.append("article", newProduct.article);
       data.append("size", newProduct.size);
+      console.log("good");
       data.append("image", blob, newProduct.image?.name);
       const message: any = await CreateProduct(data);
       toast.success(message);
@@ -44,6 +48,11 @@ const CreateProductPage = () => {
   });
 
   const { handleSubmit, values, handleChange, setFieldValue } = formik;
+  
+  const uploadImageChangeHandler = (event: any) => {
+    const image = event.target.files[0];
+    setFieldValue("image", image);
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -116,20 +125,19 @@ const CreateProductPage = () => {
               },
             }}
           />
-          <TextField
+           <TextField
             fullWidth
-            margin="normal"
             id="image"
             name="image"
+            margin="normal"
             label="Зображення"
             type="file"
+            onChange={uploadImageChangeHandler}
             defaultValue={null}
-            onChange={handleChange}
-            value={values.image}
             InputLabelProps={{
               shrink: true,
             }}
-          />
+          /> 
           <Button
             type="submit"
             fullWidth

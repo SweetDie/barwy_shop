@@ -11,7 +11,7 @@ export interface IProductItem {
 export interface IProductCreate {
   name: string;
   price: number;
-  image?: File;
+  image: File | null;
   article: string;
   size: string;
 }
